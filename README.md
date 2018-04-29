@@ -14,8 +14,15 @@ add receipt from camera/file-system/url
 Then later you can edit info about each receipt. Each receipt can have a business and category for sorting. Each displayed and sorted list can be exported as a pdf, with the receipt images on each page.
 
 ## What technologies do you plan to use?
+Html
+Css
+Javascript
+(Laravel && MySql) || (Featers/js && MongoDb || postgresql)
+
+React && React Native || Vue && Vuetify
 
 
-https://github.com/techjems17/Alarminator/blob/master/proposal.md
 
- https://github.com/scottbur1323/CHANCE/blob/master/proposal.md
+
+
+-------
