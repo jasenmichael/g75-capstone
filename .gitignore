@@ -2,3 +2,6 @@
 **.env
 **notes.md
 **node_modules
+**build-tools
+presentation
+front-end/dist
