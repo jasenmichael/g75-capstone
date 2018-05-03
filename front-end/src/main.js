@@ -1,6 +1,8 @@
 // The Vue build version to load with the `import` command
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
+import Croppa from 'vue-croppa'
+
 import App from './App'
 import router from './router'
 import {
@@ -15,10 +17,10 @@ import {
   VToolbar,
   transitions
 } from 'vuetify'
-import '../node_modules/vuetify/src/stylus/app.styl'
 
+import '../node_modules/vuetify/src/stylus/app.styl'
 import 'vue-croppa/dist/vue-croppa.css'
-import Croppa from 'vue-croppa'
+
 Vue.use(Croppa)
 
 Vue.use(Vuetify, {
