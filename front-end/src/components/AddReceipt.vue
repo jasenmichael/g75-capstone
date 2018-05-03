@@ -28,9 +28,12 @@
                 slot="initial">
             </croppa>
           </div>
-            <br>
-            <v-btn @click.native="rotateRight"><v-icon>rotate_right</v-icon></v-btn>
+
+          <v-flex>
+            <v-btn round @click.native="rotateRight"><v-icon>rotate_right</v-icon></v-btn>
             <v-btn @click.native="rotateLeft"><v-icon>rotate_left</v-icon></v-btn>
+            <v-btn @click.native="saveToQueue"><v-icon>save</v-icon>Save to Queue</v-btn>
+          </v-flex>
             <!--
             :initial-image="someImage"
             @init="handleCroppaInit"
@@ -52,9 +55,6 @@
                 <v-btn large  color="secondary" @click.native="$refs.fileUpload.click()" type="file" class="mb-5 add" dark>Or Upload File that works too..</v-btn>
             </v-flex>
           </div>
-
-
-
         </div>
 
       </v-layout>
@@ -66,9 +66,22 @@
 export default {
   data () {
     return {
+      simpleExpenses: {
+        id: '',
+        user_name: '',
+        categories: [],
+        businesses: [],
+        receipts: [],
+        receiptQueue: []
+      },
       myCroppa: {},
       selectedImage: null
     }
+  },
+  mounted () {
+    this.simpleExpenses = JSON.parse(localStorage.getItem('simple_expenses')) || this.simpleExpenses
+    // localStorage.removeItem('simple_expenses')
+    console.log(this.simpleExpenses)
   },
   methods: {
     takePicture () {
@@ -95,12 +108,30 @@ export default {
       this.selectedImage = null
       this.myCroppa.refresh()
     },
-    uploadCroppedImage () {
-      this.myCroppa.generateBlob(blob => {
-        // write code to upload the cropped image file (a file is a blob)
-        console.log(blob)
-        this.selectedImage = blob
+    async saveToQueue () {
+      console.log('save to queue')
+      await this.myCroppa.generateBlob(blob => {
+        this.simpleExpenses.receiptQueue.push({
+          id: '',
+          business: '',
+          category: '',
+          amount: 0,
+          tax: 0,
+          from: '',
+          date: '',
+          description: '',
+          receiptUrl: '',
+          LocalBlob: blob
+        })
+        // console.log(URL.createObjectURL(this.simpleExpenses.receiptQueue[0].file))
+        this.selectedImage = null
+        this.myCroppa.refresh()
+        this.saveToLocalStorage()
       }, 'image/jpeg', 0.8)
+    },
+    saveToLocalStorage () {
+      localStorage.setItem('simple_expenses', JSON.stringify(this.simpleExpenses))
+      console.log(localStorage.getItem('simple_expenses'))
     }
   }
 }
