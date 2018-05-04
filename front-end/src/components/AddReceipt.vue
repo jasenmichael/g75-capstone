@@ -8,7 +8,7 @@
           <v-slide-x-transition mode="in-out">
             <div v-show="selectedImage">
               <img src="" alt="">
-              <div class="ml-4 mb-2" id="imageCrop">
+              <div class="receipt mb-2" id="imageCrop">
                 <croppa v-model="myCroppa"
                   :width="320"
                   :height="400"
