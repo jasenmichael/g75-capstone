@@ -4,6 +4,8 @@ import Vue from 'vue'
 import Croppa from 'vue-croppa'
 
 import App from './App'
+import store from './store/store'
+
 import router from './router'
 import {
   Vuetify,
@@ -15,6 +17,8 @@ import {
   VIcon,
   VGrid,
   VToolbar,
+  VForm,
+  VSelect,
   transitions
 } from 'vuetify'
 
@@ -33,16 +37,18 @@ Vue.use(Vuetify, {
     VIcon,
     VGrid,
     VToolbar,
+    VForm,
+    VSelect,
     transitions
   },
   theme: {
-    primary: '#004C1B',
-    secondary: '#424242',
-    accent: '#7C9886',
-    error: '#FF5252',
-    info: '#009835',
-    success: '#00E550',
-    warning: '#FFC107'
+    primary: '#4CAF50',
+    secondary: '#00796B',
+    accent: '#26C6DA',
+    error: '#FF5722',
+    warning: '#FFD600',
+    info: '#26C6DA',
+    success: '#00C853'
   }
 })
 
@@ -52,6 +58,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
