@@ -1,7 +1,6 @@
 <template>
   <v-container fluid>
     <v-layout row wrap v-for="(receipt, index) in $store.state.simpleExpenses.receiptQueue" :key="index" class="daForm">
-      <!-- <p>i work</p> -->
       <v-flex d-flex xs12 sm12 md6 row justify-center>
           <img :src="receipt.dataUrl" fluid>
       </v-flex>
@@ -44,14 +43,22 @@
 
              <!-- money -->
              <v-layout>
-              <v-flex xs6 class="mr-3">
-
+              <v-flex xs7 class="mr-3">
+                <v-text-field
+                  v-model="receipt.amount"
+                  type="number"
+                  label="Amount"
+                  >
+                </v-text-field>
               </v-flex>
-              <v-flex xs6>
-
+              <v-flex xs5>
+                <v-text-field
+                  v-model="receipt.tax"
+                  type="number"
+                  label="Tax"
+                ></v-text-field>
               </v-flex>
             </v-layout>
-
              <v-btn small round color="info" @click="submit" :disabled="!valid">Submit</v-btn>
              <v-btn small round color="info" @click="remove">Delete</v-btn>
            </v-form>
@@ -97,6 +104,10 @@ img {
   margin-bottom: 2rem;
   padding: 1rem;
   border: .2rem dotted
+}
+
+.amountSubHead {
+  margin-top: -200px;
 }
 
 </style>
