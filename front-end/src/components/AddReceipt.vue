@@ -94,10 +94,11 @@ export default {
       await this.myCroppa.generateBlob(blob => {
         this.$store.state.simpleExpenses.receiptQueue.push({
           id: '',
-          business: '',
-          category: '',
+          businesses: '',
+          categories: '',
           amount: 0,
           tax: 0,
+          total: this.amount + this.tax,
           from: '',
           date: '',
           description: '',
