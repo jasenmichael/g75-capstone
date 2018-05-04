@@ -4,15 +4,17 @@
       <v-layout column align-center>
 
       <router-link to="add" class="add text-xs-center" color="primary">
-          <img src="@/assets/logo.png" alt="Simple Expenses Logo" class="mb-2 mt-4">
+          <img src="@/assets/receipt-icon1.png" alt="Simple Expenses Logo" class="mb-2 mt-4">
           <div class="">
             <v-btn large outline color="primary" class="mb-5" dark href="add" router>Add a Receipt</v-btn>
           </div>
-      </router-link>
-
+      </router-link
       <blockquote>
         &#8220;Expense Receipt organization made simple.&#8221;
       </blockquote>
+      <router-link to="about" class="about text-xs-center" color="primary">
+        read more here...
+      </router-link>
 
       </v-layout>
     </v-slide-y-transition>
@@ -30,7 +32,12 @@
   min-width: 40vw;
   min-height: 15vh;
   transition: all .2s ease-in-out;
-  z-index: 1000;
+  /* z-index: 1000; */
+}
+
+img {
+  height: 50vh;
+  width: auto;
 }
 
 .add:hover {
