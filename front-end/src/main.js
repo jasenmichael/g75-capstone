@@ -1,7 +1,6 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import Croppa from 'vue-croppa'
+// import VueResponsiveImage from 'vue-responsive-image'
 
 import App from './App'
 import store from './store/store'
@@ -19,11 +18,13 @@ import {
   VToolbar,
   VForm,
   VSelect,
+  VCheckbox,
+  VTextField,
+  VBadge,
   transitions
 } from 'vuetify'
 
 import '../node_modules/vuetify/src/stylus/app.styl'
-import 'vue-croppa/dist/vue-croppa.css'
 
 Vue.use(Croppa)
 
@@ -39,6 +40,9 @@ Vue.use(Vuetify, {
     VToolbar,
     VForm,
     VSelect,
+    VCheckbox,
+    VTextField,
+    VBadge,
     transitions
   },
   theme: {
