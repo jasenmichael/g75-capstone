@@ -66,7 +66,6 @@ export default {
   methods: {
     takePicture () {
       console.log('took pic')
-      // this.selectedImage = URL.createObjectURL(event.target.files[0])
       this.selectedImage = null
       this.myCroppa.refresh()
     },
@@ -94,26 +93,24 @@ export default {
       await this.myCroppa.generateBlob(blob => {
         this.$store.state.simpleExpenses.receiptQueue.push({
           id: '',
-          businesses: '',
-          categories: '',
+          business: '',
+          category: '',
+          from: '',
+          description: '',
           amount: 0,
           tax: 0,
-          total: this.amount + this.tax,
-          from: '',
+          total: 0,
           date: '',
-          description: '',
-          receiptUrl: '',
-          LocalBlob: blob,
-          dataUrl: dataUrl
+          dataUrl
         })
         this.selectedImage = null
         this.myCroppa.refresh()
         this.saveToLocalStorage()
       }, 'image/jpeg', 0.8)
     },
-    saveToLocalStorage () {
-      localStorage.setItem('simple_expenses', JSON.stringify(this.$store.state.simpleExpenses))
-      console.log(localStorage.getItem('simple_expenses'))
+    async saveToLocalStorage () {
+      await localStorage.setItem('simple_expenses', JSON.stringify(this.$store.state.simpleExpenses))
+      await console.log(localStorage.getItem('simple_expenses'))
     }
   }
 }
