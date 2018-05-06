@@ -21,6 +21,8 @@ import {
   VCheckbox,
   VTextField,
   VBadge,
+  VDatePicker,
+  VMenu,
   transitions
 } from 'vuetify'
 
@@ -43,6 +45,8 @@ Vue.use(Vuetify, {
     VCheckbox,
     VTextField,
     VBadge,
+    VDatePicker,
+    VMenu,
     transitions
   },
   theme: {
