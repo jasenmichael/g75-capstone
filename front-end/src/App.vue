@@ -143,6 +143,7 @@ export default {
     }
   },
   mounted () {
+    // this.$store.state.saveLocalData()
     this.$store.state.loadLocalData()
   },
   name: 'App'
@@ -185,6 +186,10 @@ hr {
 
 a:link {
     text-decoration: none;
+}
+
+a {
+   outline: 0;
 }
 
 </style>
