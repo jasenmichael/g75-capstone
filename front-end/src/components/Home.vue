@@ -21,7 +21,21 @@
   </v-container>
 </template>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+<script>
+  export default {
+    data () {
+      return {
+        beforeMount () {
+          // this.$store.state.saveLocalData()
+          this.$store.state.loadLocalData()
+          // this.businesses = this.$store.state.simpleExpenses.businesses
+          // this.categories = this.$store.state.simpleExpenses.categories
+        }
+      }
+    }
+  }
+</script>
+
 <style scoped>
 * {
   font-weight: 600;
