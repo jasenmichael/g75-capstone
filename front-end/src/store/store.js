@@ -8,7 +8,7 @@ const state = {
   simpleExpenses: {
     id: '',
     user_name: '',
-    categories: [1, 2, 3],
+    categories: [ 'Office Expenses', 'Business Property', 'Repairs and Maintenance', 'Supplies', 'Taxes and Licenses', 'Travel', 'Deductible meals', 'Utilities' ],
     businesses: ['Deli Cafe', 'Ready Builder', 'Bay Area Ren Faire', 'Michigan Ren Faire'],
     receipts: [],
     receiptQueue: [],
@@ -27,7 +27,47 @@ const state = {
       console.log('you are in sync')
       console.log('=======')
     }
-  }
+  },
+  createPdf (receipts) {
+    let bizPage = []
+    let catPage = {}
+    let pdfList = []
+    // let pdfPageList = []
+    this.simpleExpenses.businesses.forEach((business) => {
+      bizPage = {
+        business: business,
+        categories: []   // push each catPage to bizPage
+      }
+      // console.log(this.bizPage)
+      receipts.forEach((receipt) => {
+        if (business === receipt.business) {
+          // console.log(this.bizPage)
+          catPage = {
+            category: {
+              name: receipt.category,
+              receipts: []  // push each category to categories
+            }
+          }
+          this.simpleExpenses.categories.forEach((category) => {
+            // category push
+            if (category === receipt.category) {
+              // console.log(category)
+              // this.catPage.category.name = category
+              catPage.category.receipts.push(receipt)
+              // console.log(catPage)
+            }
+          })
+          bizPage.categories.push(catPage)
+          console.log(business, catPage)
+        }
+      })
+      //  push each bizPage to pdfPageList
+      pdfList.push(bizPage)
+    }) // biz
+    console.log(pdfList)
+    // console.log(this.catPage)
+  },
+  mounted () {}
 }
 
 export default new Vuex.Store({
