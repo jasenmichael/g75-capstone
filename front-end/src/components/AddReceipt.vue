@@ -12,6 +12,7 @@
                 <croppa v-model="myCroppa"
                   :width="320"
                   :height="400"
+                  canvas-color="white"
                   :canvas-color="'default'"
                   :placeholder="'Choose an image'"
                   :placeholder-font-size="0"
@@ -92,7 +93,7 @@ export default {
       var dataUrl = this.myCroppa.generateDataUrl('image/jpeg', 0.8)
       await this.myCroppa.generateBlob(blob => {
         this.$store.state.simpleExpenses.receiptQueue.push({
-          id: '',
+          id: '_' + Math.random().toString(36).substr(2, 9),
           business: '',
           category: '',
           from: '',
