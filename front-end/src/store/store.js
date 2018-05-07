@@ -30,7 +30,6 @@ const state = {
     let bizPage = []
     let catPage = {}
     let pdfList = []
-
     this.simpleExpenses.businesses.forEach((business) => {
       bizPage = {
         business: business,
@@ -47,14 +46,10 @@ const state = {
           this.simpleExpenses.categories.forEach((category) => {
             // category push
             if (category === receipt.category) {
-              console.log(catPage.category.receipts.length)
-              // here not push to correct place after first Category
-              // catPage.category.receipts.push(receipt)
               catPage.category.receipts.push(receipt)
             }
           })
           bizPage.categories.push(catPage)
-          console.log(business, catPage)
         }
       })
       pdfList.push(bizPage)
