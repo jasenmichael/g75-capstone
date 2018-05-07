@@ -3,7 +3,6 @@
   <h1>Settings</h1>
   <v-layout row wrap>
 
-
     <v-flex xs12 sm6 md6 class="biz-list">
       <v-layout wrap>
         <!-- biz section -->
@@ -14,7 +13,7 @@
           <!-- biz input -->
           <v-flex xs12>
             <v-form v-model="bValid">
-              <v-text-field prepend-icon="library_add" v-model="bizInput" :rules="nameRules" :counter="30" label="Enter a business to add..." required></v-text-field>
+              <v-text-field prepend-icon="library_add" v-model="bizInput" :counter="30" label="Enter a business to add..."></v-text-field>
             </v-form>
 
             <v-btn block fluid color="secondary" dark @click.native="add('biz', bizInput)">ADD BUSINESS</v-btn>
@@ -35,7 +34,7 @@
                 </v-list-tile>
                 <v-list-tile-action>
                 <v-spacer></v-spacer>
-                  <v-btn color="primary" fab small flat @click.native="remove('biz', index)">
+                  <v-btn color="primary" fab small flat @click.native="promptRemove('biz', index)">
                     <v-icon small color="red">remove</v-icon>
                   </v-btn>
                 </v-list-tile-action>
@@ -55,7 +54,7 @@
           <!-- cat input -->
           <v-flex xs12>
             <v-form v-model="cValid">
-              <v-text-field prepend-icon="library_add" v-model="catInput" :rules="nameRules" :counter="30" label="Enter a category to add..." required></v-text-field>
+              <v-text-field prepend-icon="library_add" v-model="catInput" :counter="30" label="Enter a category to add..."></v-text-field>
             </v-form>
 
             <v-btn block color="secondary" dark @click.native="add('cat', catInput)">ADD CATEGORY</v-btn>
@@ -76,7 +75,7 @@
                 </v-list-tile>
                 <v-list-tile-action>
                 <v-spacer></v-spacer>
-                  <v-btn color="primary" fab small flat @click.native="remove('cat', index)">
+                  <v-btn color="primary" fab small flat @click.native="promptRemove('cat', index)">
                     <v-icon small color="red">remove</v-icon>
                   </v-btn>
                 </v-list-tile-action>
@@ -87,14 +86,67 @@
 
   </v-layout>
 
+
+  <v-layout row justify-center>
+     <v-dialog v-model="dialog" persistent max-width="500px">
+       <v-card>
+         <v-card-title>
+           <span class="headline">Edit</span>
+         </v-card-title>
+         <v-card-text>
+           <v-container grid-list-md>
+             <v-layout wrap>
+
+               <v-flex xs12>
+                 <v-text-field v-model="editing" :value="editing"></v-text-field>
+               </v-flex>
+
+             </v-layout>
+           </v-container>
+         </v-card-text>
+         <v-card-actions>
+           <v-spacer></v-spacer>
+           <v-btn color="blue darken-1" flat @click.native="dialog = false">Disreguard Changes</v-btn>
+           <v-btn color="blue darken-1" flat @click.native="update()">Update</v-btn>
+         </v-card-actions>
+       </v-card>
+     </v-dialog>
+   </v-layout>
+
+
+   <!-- delete dialog -->
+   <v-layout row justify-center>
+      <v-dialog v-model="deleteDialog" persistent max-width="500px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Are you sure?</span>
+          </v-card-title>
+          <v-card-text class="pl-5">
+            <h1 v-html='editing'></h1>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click.native="deleteDialog = false">Cancel</v-btn>
+            <v-btn color="blue darken-1" flat @click.native="remove(selectedBizOrCat, selectedIndex)">Delete</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </v-layout>
+
+
 </v-container>
 </template>
 
 <script>
 export default {
   data: () => ({
-    bValid: false,
-    cValid: false,
+    dialog: false,
+    deleteDialog: false,
+    editing: 'editing template',
+    selectedBizOrCat: '',
+    selectedIndex: null,
+    bValid: true,
+    cValid: true,
     bizInput: '',
     catInput: '',
     nameRules: [
@@ -104,26 +156,73 @@ export default {
   }),
   methods: {
     add (bizorcat, input) {
-      console.log('add', bizorcat, input)
-      console.log(this.getListPath(bizorcat))
-      const addIt = this.getListPath(bizorcat)
-      addIt.push(input)
+      if (input) {
+        console.log('add', bizorcat, input)
+        console.log(this.getListPath(bizorcat))
+        const addIt = this.getListPath(bizorcat)
+        addIt.push(input)
+        this.clear(bizorcat)
+        this.save()
+      }
+    },
+    update () {
+      console.log('====update=====')
+      console.log('update---', this.seletedBizOrCat, this.selectedIndex, this.editing)
+      const updateIt = this.getListPath(this.seletedBizOrCat)
+      updateIt.splice(this.selectedIndex, 1, this.editing)
+      this.dialog = false
+      this.selectedIndex = ''
+      this.seletedBizOrCat = ''
+      this.save()
     },
     edit (bizorcat, i) {
-      console.log('edit', bizorcat + ' ' + i)
+      console.log('edit', bizorcat, i)
+      const editIt = this.getListPath(bizorcat)
+      this.editing = editIt[i]
+      this.seletedBizOrCat = bizorcat
+      this.selectedIndex = i
+      console.log(this.editing)
+      this.dialog = true
     },
     save () {
       console.log('save')
+      this.$store.state.saveLocalData()
+    },
+    promptRemove (bizorcat, i) {
+      console.log(bizorcat, i)
+      this.selectedBizOrCat = bizorcat
+      // this.editing = this.getListPath(bizorcat)[i]
+      this.editing = this.getListPath(bizorcat)
+      this.deleteDialog = true
     },
     remove (bizorcat, i) {
-      console.log('remove', bizorcat + ' ' + i)
+      console.log('remove', bizorcat, i)
+      const removeIt = this.getListPath(bizorcat)
+      removeIt.splice(i, 1)
+      this.save()
+      this.clear()
+      this.deleteDialog = false
     },
+    clear (bizorcat) {
+      if (bizorcat === 'biz') {
+        console.log('clear biz')
+        this.bizInput = ''
+      } else if (bizorcat === 'cat') {
+        console.log('clear cat')
+        this.catInput = ''
+      }
+      this.seletedBizOrCat = ''
+      this.selectedIndex = ''
+    },
+
     getListPath (bizorcat) {
       if (bizorcat === 'biz') {
-        console.log('biz')
+        console.log('getpath biz')
+        this.seletedBizOrCat = 'biz'
         return this.$store.state.simpleExpenses.businesses
       } else if (bizorcat === 'cat') {
-        console.log('cat')
+        console.log('getpath cat')
+        this.seletedBizOrCat = 'cat'
         return this.$store.state.simpleExpenses.categories
       }
     }
@@ -138,10 +237,10 @@ h1, hr {
 }
 
 .biz-list, .cat-list {
-  /* border-style: dotted; */
-  /* padding: 2rem;
+  border-style: dotted;
+  padding: 2rem;
   width: 90%;
-  margin-bottom: 1rem; */
+  margin-bottom: 1rem;
 }
 
 .add-section {
