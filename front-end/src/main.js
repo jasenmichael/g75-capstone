@@ -23,6 +23,12 @@ import {
   VBadge,
   VDatePicker,
   VMenu,
+  VCard,
+  VDialog,
+  VBtnToggle,
+  VSubheader,
+  VDataTable,
+  VAlert,
   transitions
 } from 'vuetify'
 
@@ -47,6 +53,12 @@ Vue.use(Vuetify, {
     VBadge,
     VDatePicker,
     VMenu,
+    VCard,
+    VDialog,
+    VBtnToggle,
+    VSubheader,
+    VDataTable,
+    VAlert,
     transitions
   },
   theme: {
