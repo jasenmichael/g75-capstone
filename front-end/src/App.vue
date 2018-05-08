@@ -54,18 +54,16 @@
       :clipped-left="clipped"
       class="secondary elevation-18"
       :fixed="fixed"
-      dense
-    >
-
-      <v-toolbar-side-icon large @click.stop="drawer = !drawer"></v-toolbar-side-icon>
-
-        <div class="mx-auto">
-          <router-link to="/">
-            <v-toolbar-title class="black--text brand display-2" v-text="title"></v-toolbar-title>
-          </router-link>
-        </div>
-        <v-spacer></v-spacer>
-
+      dense>
+      <span>
+        <v-toolbar-side-icon @click="drawer = !drawer"></v-toolbar-side-icon>
+      </span>
+      <div class="mx-auto">
+        <router-link to="/">
+          <v-toolbar-title class="black--text brand display-2" v-text="title"></v-toolbar-title>
+        </router-link>
+      </div>
+      <v-spacer></v-spacer>
     </v-toolbar>
 
     <router-link to="queue" v-if="($store.state.simpleExpenses.receiptQueue.length) && !($route.path === '/queue') && !($route.path === '/') && !(this.drawer)">
