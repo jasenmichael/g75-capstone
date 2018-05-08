@@ -28,29 +28,36 @@ const state = {
   },
   createPdf (receipts) {
     let bizPage = []
-    let catPage = {}
     let pdfList = []
     this.simpleExpenses.businesses.forEach((business) => {
       bizPage = {
         business: business,
-        categories: []   // push each catPage to bizPage
+        categories: {
+
+        }   // push each catPage to bizPage
       }
       receipts.forEach((receipt) => {
-        if (business === receipt.business) {
-          catPage = {
-            category: {
-              name: receipt.category,
-              receipts: []
-            }
-          }
-          this.simpleExpenses.categories.forEach((category) => {
-            // category push
-            if (category === receipt.category) {
-              catPage.category.receipts.push(receipt)
-            }
-          })
-          bizPage.categories.push(catPage)
+        if (bizPage.categories[receipt.category]) {
+          // add receipt
+          bizPage.categories[receipt.category].push(receipt)
+        } else {
+          //
+          bizPage.categories[receipt.category] = [receipt]
         }
+        // if (business === receipt.business) {
+        //   catPage = {
+        //     category: {
+        //       name: receipt.category,
+        //       receipts: []
+        //     }
+        //   }
+        //   this.simpleExpenses.categories.forEach((category) => {
+        //     // category push
+        //     if (category === receipt.category) {
+        //       catPage.category.receipts.push(receipt)
+        //     }
+        //   })
+        //   bizPage.categories.push(catPage)
       })
       pdfList.push(bizPage)
     })
