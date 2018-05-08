@@ -26,8 +26,8 @@
               <v-text-field prepend-icon="search" v-model="search" id="testing" name="input-1" label="Search"></v-text-field>
             </v-flex>
             <v-flex d-flex xs2 justify-center>
-              <v-btn flat small outline @click.native="createPdf()" class="mt-4">
-                <v-icon outline>picture_as_pdf</v-icon>
+              <v-btn flat small @click.native="createPdf()" class="mt-4">
+                <v-icon>picture_as_pdf</v-icon>
                 Export as PDF
               </v-btn>
             </v-flex>
@@ -74,7 +74,7 @@
   <div v-show="(text === 'list')">
       <v-data-table :headers="headers" :search="search" :items="this.$store.state.simpleExpenses.receipts"hide-actions class="elevation-1">
         <template slot="items" slot-scope="props">
-          <td>{{ props.item.id || ''}}</td>
+          <!-- <td>{{ props.item.id || ''}}</td> -->
           <td>{{ props.item.from || ''}}</td>
           <td>{{ props.item.date || ''}}</td>
           <td>{{ props.item.business || '' }}</td>
@@ -106,7 +106,7 @@ export default {
   data () {
     return {
       showDetails: false,
-      text: 'thumbnail',
+      text: 'list',
       search: '',
       filterList: [],
       icon: 'justify',
@@ -116,10 +116,6 @@ export default {
       toggle_multiple: [0, 1, 2],
       valid: false,
       headers: [{
-        text: 'ID',
-        value: 'index'
-      },
-      {
         text: 'From',
         align: 'left',
         // sortable: false,
@@ -153,7 +149,7 @@ export default {
           item.description.match(new RegExp(this.search, 'i')) ||
           // item.total.match(new RegExp(this.search, 'i')) ||
           item.from.match(new RegExp(this.search, 'i')) ||
-          item.date.match(new RegExp(this.search, 'i')) ||
+          (item.date ? item.date.match(new RegExp(this.search, 'i')) : '') ||
           item.category.match(new RegExp(this.search, 'i')) ||
           item.business.match(new RegExp(this.search, 'i'))
         return this.filterList
