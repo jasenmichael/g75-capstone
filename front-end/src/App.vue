@@ -174,8 +174,14 @@ hr {
 }
 
 .brand:hover {
-  transform: scale(1.1);
+  transform: scale(1.07);
     text-shadow: 2px 3px 2px rgba(255, 255, 255, 0.4);
+}
+
+@media all and (max-width: 980px) {
+  .brand {
+    font-size: 80%;
+  }
 }
 
 .links {

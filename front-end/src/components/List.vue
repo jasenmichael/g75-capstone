@@ -26,7 +26,8 @@
               <v-text-field prepend-icon="search" v-model="search" id="testing" name="input-1" label="Search"></v-text-field>
             </v-flex>
             <v-flex d-flex xs2 justify-center>
-              <v-btn flat small @click.native="createPdf()" class="mt-4">
+              <!-- <v-btn flat small @click.native="createPdf()" class="mt-4"> -->
+              <v-btn  flat small href="http://localhost:8080/SimpleExpenses-EXPORT.pdf" class="mt-4">
                 <v-icon>picture_as_pdf</v-icon>
                 Export as PDF
               </v-btn>

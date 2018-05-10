@@ -40,12 +40,13 @@
 
           <div v-show="!selectedImage">
             <v-flex>
-              <v-btn large  color="secondary" @click.native="takePicture()" class="mb-5 add" dark>Take a Picture</v-btn>
+              <input button ref="takePicture" type="file" accept="image/*;capture=camera" hidden @change="selectImageFile"/>
+              <v-btn large  color="secondary" @click.native="$refs.takePicture.click()" class="mb-5 add" dark>Take a Picture</v-btn>
             </v-flex>
 
             <v-flex>
                 <input button ref="fileUpload" type="file" accept="image/*" hidden @change="selectImageFile"/>
-                <v-btn large  color="secondary" @click.native="$refs.fileUpload.click()" type="file" class="mb-5 add" dark>Upload a File</v-btn>
+                <v-btn large  color="secondary" @click.native="$refs.fileUpload.click()" class="mb-5 add" dark>Upload a File</v-btn>
             </v-flex>
           </div>
         </div>
@@ -139,7 +140,7 @@ h1 {
 }
 
 .add:hover {
-  transform: scale(1.1);
+  transform: scale(1.08);
   box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
 }
 
